@@ -1,0 +1,19 @@
+{
+  "name": "interview-master",
+  "version": "1.0.0",
+  "description": "## Submission Guidelines: * Of the roles linked to, choose the one that best aligns with your skillset and desired role at mySidewalk. * Read the prompt and prepare a submission that satisfies its requirements. * Include all source code, configuration, tests, assets, and documentation. * Archive (zip, 7z, gztar, etc.) your program and all supporting materials. * Email your submission to careers@mysidewalk.com, subject line: “Code Submission: [Insert Role]”.",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "node": "^14.5.0",
+    "react": "^16.13.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam Bungart",
+  "license": "ISC"
+}
