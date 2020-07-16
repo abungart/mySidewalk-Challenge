@@ -1,26 +1,68 @@
-# Frontend Engineer
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Prompt
-Using the following GeoJSON layers: ([kc-neighborhoods.json](kc-neighborhoods.json), [kc-tracts.json](kc-tracts.json)), create a webpage to fetch the raw files and appropriately visualize them together on a map, along with an interactive chart of their commuter population attributes. We use [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/api/) and [Highcharts](https://www.highcharts.com/) for our map and chart visualizations, but feel free to use any libraries or APIs that you prefer. Do your best, within reason, to make the layout and design of the experience device responsive and WCAG 2.0 AA compliant.
+## Available Scripts
 
-## Assessment Guidelines:
-* We will score 1 submission. Completing extra problems is not encouraged for the purposes of this assessment.
-* The solution must be programmatic and driven by your included source code. Application driven solutions to this prompt are not appropriate. (For example Excel, Tableau, PowerBI, Dreamweaver, Flash)
-* Members of our engineering team will score submissions. They will be unaware of the author’s identity, resume, or background. They will have no access to information or documentation besides the submission.
-* Scoring consists of 4 considerations of equal weight:
-  * Runnability/Deployment: was the assessor able to get the solution to run? Were the steps to do so clear, concise, and convenient?
-  * Functionality: does the solution solve the stated problem?
-  * Readability: is the solution's code and documentation stylistically, idiomatically, and structurally sound? Does its structure, naming, and commenting make it easy to read?
-  * Testing: does the solution contain tests verifying its functionality? Is the test coverage right? Are the tests a help or hindrance for theoretical refactoring and maintenance?
-* Scoring Functionality and Testing depends on the runnability of the submission.
-* The mySidewalk development team is familiar with:
-  * Languages: Python, JavaScript, SQL, R, Sass
-  * Databases: PostgresSQL, MongoDB, SQLite
-  * Operating Systems: CoreOS, Linux, macOS
-  * Virtualization Systems: Docker (docker-machine and docker-compose preferred)
-* Quality of assessment may suffer for other submissions. You should make extra effort to provide instructions and write clearly in this case. We use MacBook Pros to assess all submissions. Windows specific submissions will make a good score difficult.
-* If your solution involves persistence use:
-  * flat files
-  * SQLite (or another self contained/embedded database)
-  * a completely scripted setup (Docker recommended)
-* We will not re-construct your database from a description or multi-step instructions. If setup is simply to execute a bash script or a docker command 👍. If it's more involved 👎.
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.<br />
+You will also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.<br />
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.<br />
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.<br />
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
