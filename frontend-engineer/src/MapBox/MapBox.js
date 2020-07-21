@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import ReactMapboxGL, { Source, Layer } from "@urbica/react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import kcNeighborhoods from "../kc-neighborhoods.json";
-
-console.log("Token:", process.env.REACT_APP_MAPBOX_ACCESS_TOKEN);
+import kcTracts from "../kc-tracts.json";
 
 class MapBox extends Component {
   state = {
@@ -24,7 +23,28 @@ class MapBox extends Component {
           className="mapContainer"
           onViewportChange={(viewport) => this.setState({ viewport })}
           {...this.state.viewport}
-        ></ReactMapboxGL>
+        >
+          <Source id="kc-neighborhoods" type="geojson" data={kcNeighborhoods} />
+          <Layer
+            id="kc-neighborhoods"
+            type="fill"
+            source="kc-neighborhoods"
+            paint={{
+              "fill-color": "#228b22",
+              "fill-opacity": 0.4,
+            }}
+          />
+          <Source id="kc-tracts" type="geojson" data={kcTracts} />
+          <Layer
+            id="kc-tracts"
+            type="fill"
+            source="kc-tracts"
+            paint={{
+              "fill-color": "#0000FF",
+              "fill-opacity": 0.4,
+            }}
+          />
+        </ReactMapboxGL>
       </div>
     );
   }
