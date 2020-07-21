@@ -1,29 +1,30 @@
-import React from "react";
-import mapboxgl from "mapbox-gl";
+import React, { Component } from "react";
+import ReactMapboxGL, { Source, Layer } from "@urbica/react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import kcNeighborhoods from "../kc-neighborhoods.json";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiYWJ1bmdhcnQiLCJhIjoiY2tjcGJnY2EzMDIybTMybzdqODk5eGthdSJ9.iexUW2PYDGJWvZOg5nqFIQ";
+console.log("Token:", process.env.REACT_APP_MAPBOX_ACCESS_TOKEN);
 
-class MapBox extends React.Component {
-  componentDidMount() {
-    const map = new mapboxgl.Map({
-      container: this.mapContainer,
-      style: "mapbox://styles/mapbox/streets-v11",
-      center: [this.state.lng, this.state.lat],
-      zoom: this.state.zoom,
-    });
-  }
-
+class MapBox extends Component {
   state = {
-    lng: 5,
-    lat: 34,
-    zoom: 2,
+    viewport: {
+      longitude: -94.5867347,
+      latitude: 39.1047201,
+      zoom: 12,
+    },
   };
 
   render() {
     return (
       <div>
-        <div ref={(el) => (this.mapContainer = el)} className="mapContainer" />
+        <ReactMapboxGL
+          style={{ width: "100%", height: "500px" }}
+          mapStyle="mapbox://styles/mapbox/streets-v11"
+          accessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+          className="mapContainer"
+          onViewportChange={(viewport) => this.setState({ viewport })}
+          {...this.state.viewport}
+        ></ReactMapboxGL>
       </div>
     );
   }
