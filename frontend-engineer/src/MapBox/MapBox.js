@@ -11,6 +11,19 @@ class MapBox extends Component {
       latitude: 39.1047201,
       zoom: 12,
     },
+    neighborhoodHighlight: [],
+    tractHighlight: [],
+  };
+
+  //Set hover features
+  tractHover = (event) => {
+    console.log("Hovering over Tract:", event.features[0].properties);
+    this.setState({ tractHighlight: event.features[0] });
+  };
+
+  neighborhoodHover = (event) => {
+    console.log("Hovering over Neighborhood:", event.features[0].properties);
+    this.setState({ neighborhoodHighlight: event.features[0] });
   };
 
   render() {
@@ -27,18 +40,36 @@ class MapBox extends Component {
           <Source id="kc-neighborhoods" type="geojson" data={kcNeighborhoods} />
           <Layer
             id="kc-neighborhoods"
-            type="fill"
+            type="line"
             source="kc-neighborhoods"
+            onHover={this.neighborhoodHover}
             paint={{
-              "fill-color": "#228b22",
-              "fill-opacity": 0.4,
+              "line-color": "#ff4f00",
+              "line-width": 3,
+              // "fill-opacity": 0.4,
             }}
           />
           <Source id="kc-tracts" type="geojson" data={kcTracts} />
           <Layer
             id="kc-tracts"
-            type="fill"
+            type="line"
             source="kc-tracts"
+            onHover={this.tractHover}
+            paint={{
+              "line-color": "#00bfff",
+              "line-width": 3,
+              // "fill-opacity": 0.4,
+            }}
+          />
+          <Source
+            id="highlighted-neighborhood"
+            type="geojson"
+            data={this.state.neighborhoodHighlight}
+          />
+          <Layer
+            id="highlighted-neighborhood"
+            type="fill"
+            source="highlighted-neighborhood"
             paint={{
               "fill-color": "#0000FF",
               "fill-opacity": 0.4,
