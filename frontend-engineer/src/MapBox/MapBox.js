@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ReactMapboxGL, { Source, Layer } from "@urbica/react-map-gl";
 import HighCharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import Popover from "@material-ui/core/Popover";
 import Box from "@material-ui/core/Box";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -51,16 +50,18 @@ class MapBox extends Component {
   };
 
   render() {
+    console.log("json:", kcNeighborhoods.features);
+
     const options = {
       chart: {
         type: "spline",
       },
       title: {
-        text: "My chart",
+        text: "Neighborhood & Tract Data",
       },
       series: [
         {
-          data: [1, 2, 1, 4, 3, 6],
+          data: { kcNeighborhoods },
         },
       ],
     };
