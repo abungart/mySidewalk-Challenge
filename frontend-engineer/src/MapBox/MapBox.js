@@ -85,6 +85,10 @@ class MapBox extends Component {
     let driveCarpool = [];
     let publicTransit = [];
     let walk = [];
+    let driveAloneTract = [];
+    let driveCarpoolTract = [];
+    let publicTransitTract = [];
+    let walkTract = [];
 
     for (let i = 0; i < kcNeighborhoods.features.length; i++) {
       driveAlone.push([
@@ -105,16 +109,35 @@ class MapBox extends Component {
       ]);
     }
 
+    for (let i = 0; i < kcTracts.features.length; i++) {
+      driveAloneTract.push([
+        kcTracts.features[i].properties.shid,
+        kcTracts.features[i].properties["pop-commute-drive_alone"],
+      ]);
+      driveCarpoolTract.push([
+        kcTracts.features[i].properties.shid,
+        kcTracts.features[i].properties["pop-commute-drive_carpool"],
+      ]);
+      publicTransitTract.push([
+        kcTracts.features[i].properties.shid,
+        kcTracts.features[i].properties["pop-commute-public_transit"],
+      ]);
+      walkTract.push([
+        kcTracts.features[i].properties.shid,
+        kcTracts.features[i].properties["pop-commute-walk"],
+      ]);
+    }
+
     const options = {
       chart: {
         type: "spline",
       },
       title: {
-        text: "Neighborhood Commute Data",
+        text: "Neighborhood and Tract Commute Data",
       },
       xAxis: {
         title: {
-          text: "Kansas City Neighborhoods",
+          text: "Kansas City Neighborhoods & Tracts",
         },
       },
       yAxis: {
@@ -123,24 +146,49 @@ class MapBox extends Component {
         },
       },
 
-      colors: ["#6CF", "#39F", "#06C", "#000"],
+      colors: [
+        "#6CF",
+        "#39F",
+        "#06C",
+        "#000",
+        "#FA8072",
+        "#FF0000",
+        "#8B0000",
+        "#FF4500",
+      ],
 
       series: [
         {
-          name: "Pop Drives Alone",
+          name: "Neighborhood Pop Drives Alone",
           data: driveAlone,
         },
         {
-          name: "Pop Drives Carpool",
+          name: "Neighborhood Pop Drives Carpool",
           data: driveCarpool,
         },
         {
-          name: "Pop Riding Public Transit",
+          name: "Neighborhood Pop Riding Public Transit",
           data: publicTransit,
         },
         {
-          name: "Pop Walks",
+          name: "Neighborhood Pop Walks",
           data: walk,
+        },
+        {
+          name: "Tract Pop Drives Alone",
+          data: driveAloneTract,
+        },
+        {
+          name: "Tract Pop Drives Carpool",
+          data: driveCarpoolTract,
+        },
+        {
+          name: "Tract Pop Riding Public Transit",
+          data: publicTransitTract,
+        },
+        {
+          name: "Tract Pop Walks",
+          data: walkTract,
         },
       ],
     };
