@@ -52,16 +52,66 @@ class MapBox extends Component {
   render() {
     console.log("json:", kcNeighborhoods.features);
 
+    let driveAlone = [];
+    let driveCarpool = [];
+    let publicTransit = [];
+    let walk = [];
+
+    for (let i = 0; i < kcNeighborhoods.features.length; i++) {
+      driveAlone.push([
+        kcNeighborhoods.features[i].properties.shid,
+        kcNeighborhoods.features[i].properties["pop-commute-drive_alone"],
+      ]);
+      driveCarpool.push([
+        kcNeighborhoods.features[i].properties.shid,
+        kcNeighborhoods.features[i].properties["pop-commute-drive_carpool"],
+      ]);
+      publicTransit.push([
+        kcNeighborhoods.features[i].properties.shid,
+        kcNeighborhoods.features[i].properties["pop-commute-public_transit"],
+      ]);
+      walk.push([
+        kcNeighborhoods.features[i].properties.shid,
+        kcNeighborhoods.features[i].properties["pop-commute-walk"],
+      ]);
+    }
+
     const options = {
       chart: {
         type: "spline",
       },
       title: {
-        text: "Neighborhood & Tract Data",
+        text: "Neighborhood Commute Data",
       },
+      xAxis: {
+        title: {
+          text: "Kansas City Neighborhoods",
+        },
+      },
+      yAxis: {
+        title: {
+          text: "Average Commuters",
+        },
+      },
+
+      colors: ["#6CF", "#39F", "#06C", "#000"],
+
       series: [
         {
-          data: { kcNeighborhoods },
+          name: "Pop Drives Alone",
+          data: driveAlone,
+        },
+        {
+          name: "Pop Drives Carpool",
+          data: driveCarpool,
+        },
+        {
+          name: "Pop Riding Public Transit",
+          data: publicTransit,
+        },
+        {
+          name: "Pop Walks",
+          data: walk,
         },
       ],
     };
