@@ -5,6 +5,7 @@ import HighchartsReact from "highcharts-react-official";
 import Box from "@material-ui/core/Box";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
+import Button from "@material-ui/core/Button";
 import "mapbox-gl/dist/mapbox-gl.css";
 import kcNeighborhoods from "../kc-neighborhoods.json";
 import kcTracts from "../kc-tracts.json";
@@ -16,10 +17,16 @@ class MapBox extends Component {
       latitude: 39.1047201,
       zoom: 12,
     },
-    neighborhoodHighlight: [],
-    tractHighlight: [],
     status: "Map",
     tabValue: 0,
+    viewType: "Neighborhood",
+    commuteInfo: {
+      location: "",
+      alone: "",
+      carpool: "",
+      pubTrans: "",
+      walking: "",
+    },
   };
 
   //Set tabs
@@ -38,15 +45,37 @@ class MapBox extends Component {
     this.setState({ tabValue: newValue });
   };
 
+  //Selector for Neighborhood or Tract Data
+  showNeighborhood = () => {
+    this.setState({ viewType: "Neighborhood" });
+  };
+  showTract = () => {
+    this.setState({ viewType: "Tract" });
+  };
+
   //Set hover features
   tractHover = (event) => {
     console.log("Hovering over Tract:", event.features[0].properties);
-    this.setState({ tractHighlight: event.features[0] });
+    this.setState({
+      commuteInfo: {
+        location: event.features[0].properties.shid,
+        alone: event.features[0].properties["pop-commute-drive_alone"],
+        carpool: event.features[0].properties["pop-commute-drive_carpool"],
+        pubTrans: event.features[0].properties["pop-commute-public_transit"],
+        walking: event.features[0].properties["pop-commute-walk"],
+      },
+    });
   };
-
   neighborhoodHover = (event) => {
-    console.log("Hovering over Neighborhood:", event.features[0].properties);
-    this.setState({ neighborhoodHighlight: event.features[0] });
+    this.setState({
+      commuteInfo: {
+        location: event.features[0].properties.shid,
+        alone: event.features[0].properties["pop-commute-drive_alone"],
+        carpool: event.features[0].properties["pop-commute-drive_carpool"],
+        pubTrans: event.features[0].properties["pop-commute-public_transit"],
+        walking: event.features[0].properties["pop-commute-walk"],
+      },
+    });
   };
 
   render() {
@@ -136,42 +165,114 @@ class MapBox extends Component {
           </Box>
         </div>
 
-        {this.state.status === "Map" && (
-          <ReactMapboxGL
-            style={{ width: "100%", height: "500px" }}
-            mapStyle="mapbox://styles/mapbox/streets-v11"
-            accessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-            className="mapContainer"
-            onViewportChange={(viewport) => this.setState({ viewport })}
-            {...this.state.viewport}
-          >
-            <Source
-              id="kc-neighborhoods"
-              type="geojson"
-              data={kcNeighborhoods}
-            />
-            <Layer
-              id="kc-neighborhoods"
-              type="line"
-              source="kc-neighborhoods"
-              onHover={this.neighborhoodHover}
-              paint={{
-                "line-color": "#ff4f00",
-                "line-width": 3,
-              }}
-            />
-            <Source id="kc-tracts" type="geojson" data={kcTracts} />
-            <Layer
-              id="kc-tracts"
-              type="line"
-              source="kc-tracts"
-              onHover={this.tractHover}
-              paint={{
-                "line-color": "#00bfff",
-                "line-width": 3,
-              }}
-            />
-          </ReactMapboxGL>
+        {(this.state.status === "Map") &
+          (this.state.viewType === "Neighborhood") && (
+          <div>
+            <ReactMapboxGL
+              style={{ width: "100%", height: "500px" }}
+              mapStyle="mapbox://styles/mapbox/streets-v11"
+              accessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+              className="mapContainer"
+              onViewportChange={(viewport) => this.setState({ viewport })}
+              {...this.state.viewport}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.showNeighborhood}
+              >
+                Neighborhood
+              </Button>
+              <> </>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.showTract}
+              >
+                Tract
+              </Button>
+              <Source
+                id="kc-neighborhoods"
+                type="geojson"
+                data={kcNeighborhoods}
+              />
+              <Layer
+                id="kc-neighborhoods"
+                type="line"
+                source="kc-neighborhoods"
+                onHover={this.neighborhoodHover}
+                onClick={this.regionClick}
+                paint={{
+                  "line-color": "#00bfff",
+                  "line-width": 3,
+                }}
+              />
+            </ReactMapboxGL>
+            {/* This should be a popup or type of modal */}
+            <div id="mapData">
+              <h3>Location: {this.state.commuteInfo.location}</h3>
+              <h4>
+                Drives Alone: {this.state.commuteInfo.alone} Drives In Carpool:
+                {this.state.commuteInfo.carpool}
+              </h4>
+              <h4>
+                Uses Public Transit: {this.state.commuteInfo.pubTrans} Walks:
+                {this.state.commuteInfo.walking}
+              </h4>
+            </div>
+          </div>
+        )}
+        {(this.state.status === "Map") & (this.state.viewType === "Tract") && (
+          <div>
+            <ReactMapboxGL
+              style={{ width: "100%", height: "500px" }}
+              mapStyle="mapbox://styles/mapbox/streets-v11"
+              accessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+              className="mapContainer"
+              onViewportChange={(viewport) => this.setState({ viewport })}
+              {...this.state.viewport}
+            >
+              <Button
+                variant="contained"
+                color="Primary"
+                onClick={this.showNeighborhood}
+              >
+                Neighborhood
+              </Button>
+              <> </>
+              <Button
+                variant="contained"
+                color="Primary"
+                onClick={this.showTract}
+              >
+                Tract
+              </Button>
+              <Source id="kc-tracts" type="geojson" data={kcTracts} />
+              <Layer
+                id="kc-tracts"
+                type="line"
+                source="kc-tracts"
+                onHover={this.tractHover}
+                onClick={this.regionClick}
+                paint={{
+                  "line-color": "#ff4f00",
+                  "line-width": 3,
+                }}
+              />
+            </ReactMapboxGL>
+            {/* This should be a popup or type of modal */}
+            <div id="mapData">
+              <h3>Location: {this.state.commuteInfo.location}</h3>
+              <h4>
+                Drives Alone: {this.state.commuteInfo.alone} Drives In Carpool:
+                {this.state.commuteInfo.carpool}
+              </h4>
+              <h4>
+                Uses Public Transit: {this.state.commuteInfo.pubTrans} Walks:
+                {this.state.commuteInfo.walking}
+              </h4>
+            </div>
+          </div>
         )}
         {this.state.status === "Chart" && (
           <HighchartsReact highcharts={HighCharts} options={options} />

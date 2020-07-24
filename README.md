@@ -15,6 +15,7 @@ Before you get started, make sure you have the following software installed on y
 - Run `npm install`
 - Create a `.env` file at the root of the project and paste this line into the file:
 
+/_ This would be instructions to get the token instead of the token itself. _/
 REACT_APP_MAPBOX_ACCESS_TOKEN=pk.eyJ1IjoiYWJ1bmdhcnQiLCJhIjoiY2tjcGJnY2EzMDIybTMybzdqODk5eGthdSJ9.iexUW2PYDGJWvZOg5nqFIQ
 
 - Run `npm start`
@@ -38,3 +39,5 @@ Special thanks for support goes to:
   https://api.highcharts.com/highcharts/plotOptions.spline
 - Intro to MapBox GL By Dallas Bille
   https://medium.com/swlh/intro-to-react-mapbox-gl-js-b163aef4d0bd
+- @Urbica React Map GL Documentation
+  https://github.com/urbica/react-map-gl
